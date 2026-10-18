@@ -52,6 +52,7 @@ def prepare(args):
             raise ValueError('Every client needs training data')
         mean, std = x[train].mean(), max(x[train].std(), 1e-6)
         x[client == identifier] = (x[client == identifier] - mean) / std
+    Path(args.output).parent.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(args.output, x=x[:, None], y=y, client=client, rig=rig, group=group, split=split)
 
 
